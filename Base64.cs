@@ -14,8 +14,20 @@ namespace Dasher
     /// 
     /// Base64 is only an integrity cipher and cannot be relied upon solely 
     /// for any security. However, it can be used to encode output of other
-    /// ciphers to incease the security and/or ensure that the contents 
+    /// ciphers to increase the security and/or ensure that the contents 
     /// were not modified during transit.
+    /// 
+    /// For example, using Base64 or XOR ciphers alone would not provide 
+    /// much security. However, together they can be quite strong against
+    /// attacks depending on the key length used in the XOR cipher. A
+    /// normal encryption scheme would be to first XOR the data and then
+    /// use Base64 to send the data. Then, to decrypt, the actions would 
+    /// first be to decode the Base64 and then use a shared key to use XOR
+    /// and deobfuscate the data again.
+    /// 
+    /// When using Base64, in some situations it may be necessary to add 
+    /// line breaks at every 76-80 characters. This is mostly for formatting, 
+    /// but some mediums will require this (i.e. SMTP is a good example).
     /// </summary>
     public class Base64
     {
@@ -24,6 +36,10 @@ namespace Dasher
         /// </summary>
         public class Encoder : IEncoder
         {
+            /// <summary>
+            /// Whether or not to apply line-breaks at every 76 characters as defined
+            /// by the Convert.ToBase64String method.
+            /// </summary>
             public bool InsertLineBreaks { get; set; }
 
             public Encoder() 
