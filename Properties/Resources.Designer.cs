@@ -63,6 +63,16 @@ namespace Dasher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap encryption {
+            get {
+                object obj = ResourceManager.GetObject("encryption", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap gnome_media_floppy {
             get {
                 object obj = ResourceManager.GetObject("gnome_media_floppy", resourceCulture);
@@ -83,9 +93,19 @@ namespace Dasher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap vpn_rev_encryption {
+        internal static System.Drawing.Bitmap stock_lock {
             get {
-                object obj = ResourceManager.GetObject("vpn-rev-encryption", resourceCulture);
+                object obj = ResourceManager.GetObject("stock_lock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stock_lock_open {
+            get {
+                object obj = ResourceManager.GetObject("stock_lock_open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -32,6 +32,45 @@ namespace Dasher
 
         private BindingList<CipherAlg> cipherAlgs;
 
+        public object Encoder
+        {
+            get
+            {
+                CipherAlg cipher = (CipherAlg)comboBox1.SelectedItem;
+                if (cipher.Name.Equals("Base64"))
+                {
+                    return new Base64();
+                }
+                else if (cipher.Name.Equals("ROT13"))
+                {
+                    return new Rot13();
+                }
+                else if (cipher.Name.Equals("URL"))
+                {
+                    return new URL();
+                }
+                else if (cipher.Name.Equals("XOR"))
+                {
+                    return new XOR();
+                }
+
+                return new Hex();
+            }
+        }
+
+        public string Key
+        {
+            get { return textBox1.Text; }
+        }
+
+        public bool Encoding
+        {
+            get
+            {
+                return radioButton1.Checked;
+            }
+        }
+
         public AddCipherForm()
         {
             InitializeComponent();
@@ -52,11 +91,13 @@ namespace Dasher
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
             Dispose();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             Dispose();
         }
 
