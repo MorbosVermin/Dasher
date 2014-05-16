@@ -12,39 +12,38 @@ namespace Dasher
     /// represent values zero to nine, and A, B, C, D, E, F (or alternatively a–f) to represent values 
     /// ten to fifteen.
     /// </summary>
-    public class Hex
+    public class Hex : IAlgorithm
     {
-        public class Encoder : IEncoder
+        public byte[] Encode(byte[] data)
         {
-            public byte[] Encode(byte[] data)
+            string value = Encoding.UTF8.GetString(data);
+            StringBuilder buffer = new StringBuilder();
+            foreach (char l in value.ToCharArray())
             {
-                string value = Encoding.UTF8.GetString(data);
-                StringBuilder buffer = new StringBuilder();
-                foreach (char l in value.ToCharArray())
-                {
-                    int v = Convert.ToInt32(l);
-                    buffer.Append(String.Format("{0:X}", v));
-                }
-
-                return Encoding.UTF8.GetBytes(buffer.ToString());
+                int v = Convert.ToInt32(l);
+                buffer.Append(String.Format("{0:X}", v));
             }
+
+            return Encoding.UTF8.GetBytes(buffer.ToString());
         }
 
-        public class Decoder : IDecoder
+        public byte[] Decode(byte[] data)
         {
-            public byte[] Decode(byte[] data)
+            string value = Encoding.UTF8.GetString(data);
+            string[] values = value.Split(' ');
+            StringBuilder buffer = new StringBuilder();
+            foreach (string v in values)
             {
-                string value = Encoding.UTF8.GetString(data);
-                string[] values = value.Split(' ');
-                StringBuilder buffer = new StringBuilder();
-                foreach (string v in values)
-                {
-                    int val = Convert.ToInt32(v, 16);
-                    buffer.Append(Char.ConvertFromUtf32(val));
-                }
-
-                return Encoding.UTF8.GetBytes(buffer.ToString());
+                int val = Convert.ToInt32(v, 16);
+                buffer.Append(Char.ConvertFromUtf32(val));
             }
+
+            return Encoding.UTF8.GetBytes(buffer.ToString());
+        }
+
+        public override string ToString()
+        {
+            return "base 16, or hex";
         }
     }
 }

@@ -16,22 +16,21 @@ namespace Dasher
     /// application/x-www-form-urlencoded media type, as is often used in the submission of HTML 
     /// form data in HTTP requests.
     /// </summary>
-    public class URL
+    public class URL : IAlgorithm
     {
-        public class Encoder : IEncoder
+        public byte[] Encode(byte[] data)
         {
-            public byte[] Encode(byte[] data)
-            {
-                return Encoding.UTF8.GetBytes(WebUtility.UrlEncode(Encoding.UTF8.GetString(data)));
-            }
+            return Encoding.UTF8.GetBytes(WebUtility.UrlEncode(Encoding.UTF8.GetString(data)));
         }
 
-        public class Decoder : IDecoder
+        public byte[] Decode(byte[] data)
         {
-            public byte[] Decode(byte[] data)
-            {
-                return Encoding.UTF8.GetBytes(WebUtility.UrlDecode(Encoding.UTF8.GetString(data)));
-            }
+            return Encoding.UTF8.GetBytes(WebUtility.UrlDecode(Encoding.UTF8.GetString(data)));
+        }
+
+        public override string ToString()
+        {
+            return "URL";
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Dasher
 
         private BindingList<CipherAlg> cipherAlgs;
 
-        public object Encoder
+        public IAlgorithm Encoder
         {
             get
             {

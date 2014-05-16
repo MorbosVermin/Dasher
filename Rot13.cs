@@ -11,7 +11,7 @@ namespace Dasher
     /// with the letter 13 letters after it in the alphabet. ROT13 is an example 
     /// of the 'Caesar cipher', developed in ancient Rome. 
     /// </summary>
-    public class Rot13
+    public class Rot13 : IAlgorithm
     {
         /// <summary>
         /// In the basic Latin alphabet, ROT13 is its own inverse; that is, to 
@@ -20,50 +20,52 @@ namespace Dasher
         /// which implements IEncoder and IDecoder, does provide a convienent 
         /// Decode method but simply calls Encode.
         /// </summary>
-        public class Encoder : IEncoder, IDecoder
+        public byte[] Encode(byte[] data)
         {
-            public byte[] Encode(byte[] data)
+            string value = Encoding.UTF8.GetString(data);
+            char[] chars = value.ToCharArray();
+            StringBuilder buffer = new StringBuilder();
+            for (int i = 0; i < chars.Length; i++)
             {
-                string value = Encoding.UTF8.GetString(data);
-                char[] chars = value.ToCharArray();
-                StringBuilder buffer = new StringBuilder();
-                for (int i = 0; i < chars.Length; i++)
+                int number = (int)chars[i];
+
+                if (number >= 'a' && number <= 'z')
                 {
-                    int number = (int)chars[i];
-
-                    if (number >= 'a' && number <= 'z')
+                    if (number > 'm')
                     {
-                        if (number > 'm')
-                        {
-                            number -= 13;
-                        }
-                        else
-                        {
-                            number += 13;
-                        }
+                        number -= 13;
                     }
-                    else if (number >= 'A' && number <= 'Z')
+                    else
                     {
-                        if (number > 'M')
-                        {
-                            number -= 13;
-                        }
-                        else
-                        {
-                            number += 13;
-                        }
+                        number += 13;
                     }
-
-                    buffer.Append((char)number);
+                }
+                else if (number >= 'A' && number <= 'Z')
+                {
+                    if (number > 'M')
+                    {
+                        number -= 13;
+                    }
+                    else
+                    {
+                        number += 13;
+                    }
                 }
 
-                return Encoding.UTF8.GetBytes(buffer.ToString());
+                buffer.Append((char)number);
             }
 
-            public byte[] Decode(byte[] data)
-            {
-                return Encode(data);
-            }
+            return Encoding.UTF8.GetBytes(buffer.ToString());
+        }
+
+        public byte[] Decode(byte[] data)
+        {
+            return Encode(data);
+        }
+
+        public override string ToString()
+        {
+            return "ROT-13";
         }
     }
 }

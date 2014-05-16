@@ -29,39 +29,27 @@ namespace Dasher
     /// line breaks at every 76-80 characters. This is mostly for formatting, 
     /// but some mediums will require this (i.e. SMTP is a good example).
     /// </summary>
-    public class Base64
+    public class Base64 : IAlgorithm
     {
         /// <summary>
-        /// Base64 IEncoder Implementation 
+        /// Whether or not to apply line-breaks at every 76 characters as defined
+        /// by the Convert.ToBase64String method.
         /// </summary>
-        public class Encoder : IEncoder
+        public bool InsertLineBreaks { get; set; }
+
+        public byte[] Encode(byte[] input)
         {
-            /// <summary>
-            /// Whether or not to apply line-breaks at every 76 characters as defined
-            /// by the Convert.ToBase64String method.
-            /// </summary>
-            public bool InsertLineBreaks { get; set; }
-
-            public Encoder() 
-            {
-                InsertLineBreaks = false;
-            }
-
-            public byte[] Encode(byte[] data)
-            {
-                return Encoding.UTF8.GetBytes(Convert.ToBase64String(data, ((InsertLineBreaks) ? Base64FormattingOptions.InsertLineBreaks : Base64FormattingOptions.None)));
-            }
+            return Encoding.UTF8.GetBytes(Convert.ToBase64String(input, ((InsertLineBreaks) ? Base64FormattingOptions.InsertLineBreaks : Base64FormattingOptions.None)));
         }
 
-        /// <summary>
-        /// Base64 IDecoder Implementation
-        /// </summary>
-        public class Decoder : IDecoder
+        public byte[] Decode(byte[] input)
         {
-            public byte[] Decode(byte[] data)
-            {
-                return Convert.FromBase64String(Encoding.UTF8.GetString(data));
-            }
+            return Convert.FromBase64String(Encoding.UTF8.GetString(input));
+        }
+
+        public override string ToString()
+        {
+            return "Base64";
         }
     }
 }
