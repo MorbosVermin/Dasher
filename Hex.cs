@@ -43,7 +43,14 @@ namespace Dasher
 
         public override string ToString()
         {
-            return "base 16, or hex";
+            return String.Format("{0} - {1}", "Hex (or base 16)", getDescription());
         }
+
+
+        public string getDescription()
+        {
+            return "Algorithm where 0-9 represent 0-9 and A-F are 10-15.";
+        }
+
     }
 }

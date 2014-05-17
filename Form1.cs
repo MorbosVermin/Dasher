@@ -92,7 +92,6 @@ namespace Dasher
             {
                 textBox2.Text = openFileDialog1.FileName;
             }
-
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -118,6 +117,9 @@ namespace Dasher
 
         private void button2_Click(object sender, EventArgs e)
         {
+            /*
+             * Add a cipher operation.
+             */
             AddCipherForm form = new AddCipherForm();
             DialogResult r = form.ShowDialog(this);
             if (r != System.Windows.Forms.DialogResult.Cancel)
@@ -128,6 +130,17 @@ namespace Dasher
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if ((radioButton1.Checked && textBox1.Text.Length == 0) || (radioButton2.Checked && textBox2.Text.Length == 0))
+            {
+                MessageBox.Show("You must supply some text to apply the cipher operations to. Enter text or select File and select a file which contains the text.");
+                return;
+            }
+            else if (operations.Count == 0)
+            {
+                MessageBox.Show("You must add at least one cipher operation. Click the Add button to continue.");
+                return;
+            }
+
             /*
              * Perform (en|de)coding.
              */
@@ -149,7 +162,16 @@ namespace Dasher
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            byte[] input = (radioButton1.Checked) ? Encoding.UTF8.GetBytes(textBox1.Text) : File.ReadAllBytes(textBox2.Text);
+            byte[] input = null;
+            if (radioButton1.Checked)
+            {
+                input = Encoding.UTF8.GetBytes(textBox1.Text);
+            }
+            else
+            {
+                input = Encoding.UTF8.GetBytes(File.ReadAllText(textBox2.Text));
+            }
+
             foreach(Operation op in operations)  
             {
                 input = (op.isEncoding()) ? ((IAlgorithm)op.GetEncoderObject()).Encode(input) : ((IAlgorithm)op.GetEncoderObject()).Decode(input);

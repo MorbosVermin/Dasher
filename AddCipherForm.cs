@@ -13,48 +13,14 @@ namespace Dasher
     public partial class AddCipherForm : Form
     {
 
-        class CipherAlg
-        {
-            public string Name { get; set; }
-            public string Description { get; set; }
-
-            public CipherAlg(string name, string desc)
-            {
-                this.Name = name;
-                this.Description = desc;
-            }
-
-            public override string ToString()
-            {
-                return String.Format("{0} - {1}", Name, Description);
-            }
-        }
-
-        private BindingList<CipherAlg> cipherAlgs;
+        private BindingList<IAlgorithm> cipherAlgs;
 
         public IAlgorithm Encoder
         {
             get
             {
-                CipherAlg cipher = (CipherAlg)comboBox1.SelectedItem;
-                if (cipher.Name.Equals("Base64"))
-                {
-                    return new Base64();
-                }
-                else if (cipher.Name.Equals("ROT13"))
-                {
-                    return new Rot13();
-                }
-                else if (cipher.Name.Equals("URL"))
-                {
-                    return new URL();
-                }
-                else if (cipher.Name.Equals("XOR"))
-                {
-                    return new XOR();
-                }
-
-                return new Hex();
+                IAlgorithm cipher = (IAlgorithm)comboBox1.SelectedItem;
+                return cipher;
             }
         }
 
@@ -74,19 +40,19 @@ namespace Dasher
         public AddCipherForm()
         {
             InitializeComponent();
-            this.cipherAlgs = new BindingList<CipherAlg>();
-            cipherAlgs.Add(new CipherAlg("Base64", "An integrity cipher that cannot be relied upon solely for any security."));
-            cipherAlgs.Add(new CipherAlg("ROT13", "Simple character rotation scheme."));
-            cipherAlgs.Add(new CipherAlg("URL", "Scheme used by web applications to normalize data from the web."));
-            cipherAlgs.Add(new CipherAlg("XOR", "XOR encryption using a shared-key. A key is required."));
-            cipherAlgs.Add(new CipherAlg("HEX", "Hexidecimal encoding."));
+            this.cipherAlgs = new BindingList<IAlgorithm>();
+            cipherAlgs.Add(new Base64());
+            cipherAlgs.Add(new Rot13());
+            cipherAlgs.Add(new XOR());
+            cipherAlgs.Add(new URL());
+            cipherAlgs.Add(new Hex());
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CipherAlg alg = (CipherAlg)comboBox1.SelectedItem;
-            label4.Enabled = alg.Name.Equals("XOR");
-            textBox1.Enabled = alg.Name.Equals("XOR");
+            IAlgorithm alg = (IAlgorithm)comboBox1.SelectedItem;
+            label4.Enabled = (alg is XOR);
+            textBox1.Enabled = (alg is XOR);
         }
 
         private void button2_Click(object sender, EventArgs e)

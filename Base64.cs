@@ -49,7 +49,13 @@ namespace Dasher
 
         public override string ToString()
         {
-            return "Base64";
+            return String.Format("{0} - {1}", "Base64", getDescription());
         }
+
+        public string getDescription()
+        {
+            return "A non-secure obfuscation scheme, useful with other algorithms.";
+        }
+
     }
 }

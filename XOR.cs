@@ -41,7 +41,13 @@ namespace Dasher
 
         public override string ToString()
         {
-            return String.Format("XOR "+ ((Key.Length > 0) ? "using a {0}byte key." : ""), Key.Length);
+            return String.Format("{0} - {1}", "XOR", getDescription());
         }
+
+        public string getDescription()
+        {
+            return "An algorithm that applys the bitwise XOR operator to every character using a given key.";
+        }
+
     }
 }

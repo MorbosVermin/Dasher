@@ -30,7 +30,13 @@ namespace Dasher
 
         public override string ToString()
         {
-            return "URL";
+            return String.Format("{0} - {1}", "URL", getDescription());
         }
+
+        public string getDescription()
+        {
+            return "Also called percent-encoding, this scheme is most often used in web applications to normalize user supplied inputs.";
+        }
+
     }
 }

@@ -65,7 +65,13 @@ namespace Dasher
 
         public override string ToString()
         {
-            return "ROT-13";
+            return String.Format("{0} - {1}", "ROT-13", getDescription());
         }
+
+        public string getDescription()
+        {
+            return "A simple character rotation algorithm.";
+        }
+
     }
 }

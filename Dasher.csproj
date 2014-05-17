@@ -62,8 +62,6 @@
     </Compile>
     <Compile Include="Hex.cs" />
     <Compile Include="IAlgorithm.cs" />
-    <Compile Include="IDecoder.cs" />
-    <Compile Include="IEncoder.cs" />
     <Compile Include="OperationOutputForm.cs">
       <SubType>Form</SubType>
     </Compile>

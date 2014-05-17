@@ -31,6 +31,7 @@
             this.txtOutput = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // txtOutput
@@ -62,6 +63,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "&Save...";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // OperationOutputForm
             // 
@@ -90,5 +92,6 @@
         private System.Windows.Forms.RichTextBox txtOutput;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
