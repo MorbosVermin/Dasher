@@ -125,6 +125,7 @@ namespace Dasher
             if (r != System.Windows.Forms.DialogResult.Cancel)
             {
                 operations.Add(new Operation(form.Encoding, form.Encoder, form.Key));
+                Console.WriteLine("Successfully added operation: {0} ({1}; key = {2})", form.Encoder, (form.Encoding ? "encoding" : "decoding"), form.Key);
             }
         }
 

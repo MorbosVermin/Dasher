@@ -24,9 +24,10 @@ namespace Dasher
             }
         }
 
+        private string _key;
         public string Key
         {
-            get { return textBox1.Text; }
+            get { return _key; }
         }
 
         public bool Encoding
@@ -57,6 +58,7 @@ namespace Dasher
 
         private void button2_Click(object sender, EventArgs e)
         {
+            _key = textBox1.Text;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             Dispose();
         }
